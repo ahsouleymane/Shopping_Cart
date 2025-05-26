@@ -25,5 +25,10 @@ public class HomeController {
 	public String products() {
 		return "product";
 	}
+	
+	@GetMapping("/product")
+	public String product() {
+		return "view_product";
+	}
 
 }
