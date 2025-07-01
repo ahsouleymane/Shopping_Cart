@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title></title>
+	</head>
+	<body>
+		<section>
+			<div class="container p-5 mt-4">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<div class="card card-sh">
+							<div class="card-header text-center fs-4"> Ajouter Produit</div>
+							<div class="card-body">
+								<form>
+									
+									<div class="mb-3">
+										<label>Libellé</label> 
+										<input type="text" name="libelle" class="form-control">
+									</div>
+									
+									<div class="mb-3">
+										<label>Description</label> 
+										<textarea rows="3" cols="" name="description" class="form-control"></textarea>
+									</div>
+									
+									<div class="mb-3">
+										<label>Catégorie</label> 
+										<select name="categorie" class="form-control">
+											<option>--- Select ---</option>
+											<option>Electronique</option>
+										</select>
+									</div>
+									
+									<div class="mb-3">
+										<label>Prix</label> 
+										<input type="text" name="prix" class="form-control">
+									</div>
+									
+									<div class="row">
+										
+										<div class="mb-3 col">
+											<label>Stock</label> 
+											<input type="text" name="stock" class="form-control">
+										</div>
+										
+										<div class="mb-3 col">
+											<label>Image</label> 
+											<input type="file" name="image" class="form-control">
+										</div>
+										
+									</div>
+									
+									<button class="btn btn-dark col-md-12">valider</button>
+									
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
