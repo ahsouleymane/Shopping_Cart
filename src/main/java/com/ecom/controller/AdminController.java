@@ -1,6 +1,14 @@
 package com.ecom.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +46,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/saveCategory")
-	public String saveCategory(@ModelAttribute Category category, @RequestParam("imageFile") MultipartFile imageFile, HttpSession session) {
+	public String saveCategory(@ModelAttribute Category category, @RequestParam("imageFile") MultipartFile imageFile, HttpSession session) throws IOException {
 		
 		String imageName = imageFile != null ? imageFile.getOriginalFilename() : "default.jpg";
 		category.setImageName(imageName);
@@ -46,15 +54,27 @@ public class AdminController {
 		Boolean existCategory = categoryService.existCategory(category.getName());
 		
 		if(existCategory) {
-			session.setAttribute("errorMsg", "Category Name already exists");
+			session.setAttribute("errorMsg", "La catégorie existe déja !");
 		} else {
 			
 			Category saveCategory = categoryService.saveCategory(category);
 			
 			if(ObjectUtils.isEmpty(saveCategory)) {
-				session.setAttribute("errorMsg", "Not saved ! internal server error");
+				session.setAttribute("errorMsg", "Echec de l'enregistrement ! erreur interne du serveur");
 			} else {
-				session.setAttribute("succesMsg", "Saved successfully");
+					
+				File saveFile = new ClassPathResource("static/img").getFile();
+				
+				Path path = Paths.get(saveFile.getAbsolutePath() + 
+						File.separator + "category_img" + 
+						File.separator + imageFile.getOriginalFilename());
+				
+				System.out.println(path);
+				Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				
+				
+				session.setAttribute("succesMsg", "Enregistrer avec succès");
+				
 			}
 
 		}

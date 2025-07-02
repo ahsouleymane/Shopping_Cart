@@ -12,7 +12,20 @@
 					
 					<div class="col-md-3">
 						<div class="card card-sh">
-							<div class="card-header text-center fs-4">Ajouter Catégorie</div>
+							<div class="card-header text-center fs-4">
+								<p class="fs-4"> Ajouter Catégorie </p>
+								
+								<th:block th:if="${session.succesMsg}">
+									<p class="text-success">[[${session.successMsg}]]</p>
+<!--									<th:block th:text="${@CommonServiceImpl.removeSessionMessage()}"></th:block>-->
+								</th:block>
+								
+								<th:block th:if="${session.errorMsg}">
+									<p class="text-danger">[[${session.errorMsg}]]</p>
+<!--									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>-->
+								</th:block>
+																
+							</div>
 							<div class="card-body">
 								
 								<form action="/admin/saveCategory" method="post" enctype="multipart/form-data">
