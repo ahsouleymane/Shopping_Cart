@@ -29,7 +29,7 @@
 									
 									<div class="mb-3">
 										<label>Titre</label> 
-										<input type="text" name="titre" class="form-control">
+										<input type="text" name="title" class="form-control">
 									</div>
 									
 									<div class="mb-3">
@@ -39,7 +39,7 @@
 									
 									<div class="mb-3">
 										<label>Catégorie</label> 
-										<select name="categorie" class="form-control">
+										<select name="category" class="form-control">
 											<option>--- Select ---</option>
 											<option th:each="c:${categories}">[[${c.name}]]</option>
 										</select>
@@ -47,7 +47,7 @@
 									
 									<div class="mb-3">
 										<label>Prix</label> 
-										<input type="number" name="prix" class="form-control">
+										<input type="number" name="price" class="form-control">
 									</div>
 									
 									<div class="row">
