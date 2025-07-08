@@ -10,13 +10,26 @@
 				<div class="row">
 					<div class="col-md-6 offset-md-3">
 						<div class="card card-sh">
-							<div class="card-header text-center fs-4"> Ajouter Produit</div>
+							<div class="card-header text-center fs-4">
+								<p class="fs-4"> Ajouter Produit </p>
+								
+								<th:block th:if="${session.successMsg}">
+									<p class="text-success">[[${session.successMsg}]]</p>
+<!--									<th:block th:text="${@CommonServiceImpl.removeSessionMessage()}"></th:block>-->
+								</th:block>
+								
+								<th:block th:if="${session.errorMsg}">
+									<p class="text-danger">[[${session.errorMsg}]]</p>
+<!--									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>-->
+								</th:block>
+																
+							</div>
 							<div class="card-body">
-								<form>
+								<form action="/admin/saveProduct" method="post" enctype="multipart/form-data">
 									
 									<div class="mb-3">
-										<label>Libellé</label> 
-										<input type="text" name="libelle" class="form-control">
+										<label>Titre</label> 
+										<input type="text" name="titre" class="form-control">
 									</div>
 									
 									<div class="mb-3">
@@ -28,13 +41,13 @@
 										<label>Catégorie</label> 
 										<select name="categorie" class="form-control">
 											<option>--- Select ---</option>
-											<option>Electronique</option>
+											<option th:each="c:${categories}">[[${c.name}]]</option>
 										</select>
 									</div>
 									
 									<div class="mb-3">
 										<label>Prix</label> 
-										<input type="text" name="prix" class="form-control">
+										<input type="number" name="prix" class="form-control">
 									</div>
 									
 									<div class="row">
@@ -46,7 +59,7 @@
 										
 										<div class="mb-3 col">
 											<label>Image</label> 
-											<input type="file" name="image" class="form-control">
+											<input type="file" name="productImage" class="form-control">
 										</div>
 										
 									</div>

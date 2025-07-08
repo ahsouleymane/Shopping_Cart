@@ -15,7 +15,7 @@
 							<div class="card-header text-center fs-4">
 								<p class="fs-4"> Ajouter Catégorie </p>
 								
-								<th:block th:if="${session.succesMsg}">
+								<th:block th:if="${session.successMsg}">
 									<p class="text-success">[[${session.successMsg}]]</p>
 <!--									<th:block th:text="${@CommonServiceImpl.removeSessionMessage()}"></th:block>-->
 								</th:block>
@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-8">
+					<div class="col-md-9">
 						<div class="card card-sh">
 							<div class="card-header text-center fs-4">List Catégorie</div>
 							<div class="card-body">
@@ -74,17 +74,34 @@
 								  <thead>
 								    <tr>
 								      <th scope="col">S1 No</th>
-								      <th scope="col">Libellé</th>
+								      <th scope="col">Catégorie</th>
+									  <th scope="col">Statut</th>
 								      <th scope="col">Image</th>
 								      <th scope="col">Action</th>
 								    </tr>
 								  </thead>
 								  <tbody>
-								    <tr>
-								      <th scope="row">1</th>
-								      <td>Mark</td>
-								      <td>Otto</td>
-								      <td>@mdo</td>
+								    <tr th:each="cat,c:${categorys}">
+								      <th scope="row">[[${c.count}]]</th>
+								      <td>[[${cat.name}]]</td>
+									  <td>[[${cat.isActive}]]</td>
+								      <td><img th:src="@{'/img/category_img/'+${cat.imageName}}"
+										width="100px" height="80px"></td>
+								      <td>
+										
+										<a th:href="@{'/admin/loadEditCategory/'+${cat.id}}">
+											<i class="fa-solid fa-pen-to-square btn btn-outline-primary btn-sm"> 
+												editer
+											</i>
+										</a>
+										
+										<a th:href="@{'/admin/deleteCategory/'+${cat.id}}">
+											<i class="fa-solid fa-trash text-danger btn btn-outline-danger btn-sm"> 
+												supprimer
+											</i>
+										</a>
+										
+									  </td>
 								    </tr>
 								  </tbody>
 								</table>
