@@ -49,7 +49,7 @@
 									  <td>[[${p.price}]]</td>
 			  					      <td>[[${p.stock}]]</td>
 									  <td>
-										<a href="#" class="btn btn-sm btn-outline-primary">
+										<a th:href="@{'/admin/editProduct/'+${p.id}}" class="btn btn-sm btn-outline-primary">
 											<i class="fa-solid fa-pen-to-square">
 												Editer
 											</i>

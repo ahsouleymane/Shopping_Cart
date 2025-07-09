@@ -11,7 +11,7 @@
 					<div class="col-md-8 offset-md-2">
 						<div class="card card-sh">
 							<div class="card-header text-center fs-4">
-								<p class="fs-4"> Ajouter Produit </p>
+								<p class="fs-4"> Editer Produit </p>
 								
 								<th:block th:if="${session.successMsg}">
 									<p class="text-success">[[${session.successMsg}]]</p>
@@ -25,47 +25,53 @@
 																
 							</div>
 							<div class="card-body">
-								<form action="/admin/saveProduct" method="post" enctype="multipart/form-data">
+								<form action="/admin/updateProduct" method="post" enctype="multipart/form-data">
+									
+									<input type="hidden" name="id" th:value="${product.id}">
 									
 									<div class="row">
-										
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label>Titre</label> 
-												<input type="text" name="title" class="form-control">
+												<input type="text" name="title" class="form-control" th:value="${product.title}">
 											</div>
 											
 											<div class="mb-3">
 												<label>Description</label> 
-												<textarea rows="3" cols="" name="description" class="form-control"></textarea>
+												<textarea rows="3" cols="" name="description" class="form-control">
+													[[${product.description}]]
+												</textarea>
 											</div>
 											
 											<div class="mb-3">
 												<label>Catégorie</label> 
 												<select name="category" class="form-control">
-													<option>--- Select ---</option>
+													<option>[[${product.category}]]</option>
 													<option th:each="c:${categories}">[[${c.name}]]</option>
 												</select>
+											</div>
+											
+											<div class="mb-3">
+												<label>Prix</label> 
+												<input type="number" name="price" class="form-control" th:value="${product.price}">
 											</div>
 										</div>
 										
 										<div class="col-md-6">
-											<div class="mb-3">
-												<label>Prix</label> 
-												<input type="number" name="price" class="form-control">
-											</div>
 											
 											<div class="mb-3">
 												<label>Stock</label> 
-												<input type="text" name="stock" class="form-control">
+												<input type="text" name="stock" class="form-control" th:value="${product.stock}">
 											</div>
 											
 											<div class="mb-3">
 												<label>Image</label> 
 												<input type="file" name="productImage" class="form-control">
 											</div>
+											
+											<img th:src="@{'/img/product_img/'+${product.image}}" width="110px" height="110px">
+												
 										</div>
-										
 									</div>
 									
 									<button class="btn btn-dark col-md-12">valider</button>
