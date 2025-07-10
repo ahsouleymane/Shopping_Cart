@@ -32,9 +32,9 @@
 							  <a href="#" class="list-group-item list-group-item-dark list-group-item-action active" aria-current="true">
 							    Categories
 							  </a>
-							  <a href="#" class="list-group-item list-group-item-dark list-group-item-action">Electroniques</a>
-							  <a href="#" class="list-group-item list-group-item-dark list-group-item-action">Electroménagers</a>
-							  <a href="#" class="list-group-item list-group-item-dark list-group-item-action">Meubles</a>
+							  <a href="#" th:each="c:${categories}"
+							  	class="list-group-item list-group-item-dark list-group-item-action">[[${c.name}]]</a>
+							  
 							</div>
 						</div>
 					</div>
@@ -60,58 +60,6 @@
 											</div>
 										</div>
 									</div>
-									
-									<!-- Remove after backend impl -->
-									
-									<div class="col-md-3">
-										<div class="card">
-											<div class="card-body text-center">
-												<img alt="" src="img/product_img/hplabtop.jpeg" width="100%" height="150px">
-												<p class="fs-5 text-center">DELL 6535</p>
-												<div class="row text-center fw-bold">
-													<p class="fs-6 text-center">
-														&#8377 300000
-														<span class="fs-6 text-success">20% off</span>
-													</p>
-													<a class="btn btn-dark col-md-6 offset-md-3">Voir Details</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3">
-										<div class="card">
-											<div class="card-body text-center">
-												<img alt="" src="img/product_img/hplabtop.jpeg" width="100%" height="150px">
-												<p class="fs-5 text-center">DELL 6535</p>
-												<div class="row text-center fw-bold">
-													<p class="fs-6 text-center">
-														&#8377 300000
-														<span class="fs-6 text-success">20% off</span>
-													</p>
-													<a class="btn btn-dark col-md-6 offset-md-3">Voir Details</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3">
-										<div class="card">
-											<div class="card-body text-center">
-												<img alt="" src="img/product_img/hplabtop.jpeg" width="100%" height="150px">
-												<p class="fs-5 text-center">DELL 6535</p>
-												<div class="row text-center fw-bold">
-													<p class="fs-6 text-center">
-														&#8377 300000
-														<span class="fs-6 text-success">20% off</span>
-													</p>
-													<a class="btn btn-dark col-md-6 offset-md-3">Voir Details</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<!-- Remove after backend impl -->
 									
 								</div>
 							</div>
