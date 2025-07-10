@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<section>
-			<div class="container p-5 mt-5">
+			<div class="container p-5 mt-4">
 				<div class="row">
 					<div class="col-md-8 offset-md-2">
 						<div class="card card-sh">
@@ -58,6 +58,24 @@
 										</div>
 										
 										<div class="col-md-6">
+											
+											<div class="row">
+												
+												<div class="col-md-6">
+													<div class="mb-3">
+														<label>Rémise</label> 
+														<input type="number" name="discount" class="form-control" th:value="${product.discount}">
+													</div>
+												</div>
+												
+												<div class="col-md-6">
+													<div class="mb-3">
+														<label>Prix de rémise</label> 
+														<input type="number" readonly class="form-control" th:value="${product.discountPrice}">
+													</div>
+												</div>
+												
+											</div>
 											
 											<div class="mb-3">
 												<label>Stock</label> 
