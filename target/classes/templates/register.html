@@ -14,62 +14,73 @@
 					</div>
 					<div class="col-md-7 p-4">
 						<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
-							<div class="card-header">
+							<div class="card-header text-center">
 								<p class="fs-4 text-center">Inscription</p>
+								
+								<th:block th:if="${session.successMsg}">
+									<p class="text-success fw-bold">[[${session.successMsg}]]</p>
+									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+								</th:block>
+								
+								<th:block th:if="${session.errorMsg}">
+									<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+								</th:block>
+								
 							</div>
 							
 							<div class="card-body">
-								<form>
+								<form action="/saveUser" method="post" enctype="multipart/form-data">
 									
 									<div class="row">
 										<div class="col">
 											<label class="form-label">Nom & Prénom</label>
-											<input class="form-control" name="nomprenom" type="text">
+											<input class="form-control" name="name" type="text" required>
 										</div>
 										<div class="col">
 											<label class="form-label">Numéro de Téléphone</label>
-											<input class="form-control" name="tel" type="number">
+											<input class="form-control" name="mobileNumber" type="number" required>
 										</div>
 									</div>
 									
 									<div class="row">
 										<div class="col">
 											<label class="form-label">Adresse</label>
-											<input class="form-control" name="adresse" type="text">
+											<input class="form-control" name="address" type="text" required>
 										</div>
 										<div class="col">
 											<label class="form-label">Ville</label>
-											<input class="form-control" name="ville" type="text">
+											<input class="form-control" name="city" type="text" required>
 										</div>
 										<div class="col">
 											<label class="form-label">Pays</label>
-											<input class="form-control" name="pays" type="text">
+											<input class="form-control" name="state" type="text" required>
 										</div>
 									</div>
 									
 									<div class="mb-3">
 										<label class="form-label">Email</label>
-										<input class="form-control" name="email" type="email">
+										<input class="form-control" name="email" type="email" required>
 									</div>
 									
 									<div class="row">
 										<div class="col">
 											<label class="form-label">Code Pin</label>
-											<input class="form-control" name="codepin" type="number">
+											<input class="form-control" name="pincode" type="number" required>
 										</div>
 										<div class="col">
 											<label class="form-label">Mot de passe</label>
-											<input class="form-control" name="mdp" type="password">
+											<input class="form-control" name="password" type="password" required>
 										</div>
 										<div class="col">
 											<label class="form-label">Confimer mot de passe</label>
-											<input class="form-control" name="cmdp" type="password">
+											<input class="form-control" name="cpassword" type="password" required>
 										</div>
 									</div>
 									
 									<div class="mb-3">
 										<label class="form-label">Photo de profile</label>
-										<input class="form-control" name="profile" type="file">
+										<input class="form-control" name="profileImage" type="file">
 									</div>
 									
 									<button type="submit" class="btn bg-dark text-white col-md-12">S'inscrire</button>
