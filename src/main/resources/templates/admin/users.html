@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title></title>
+	</head>
+	<body>
+		<section>
+			
+			<div class="container-fluid mt-5 p-5">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<div class="card card-sh">
+							<div class="card-header text-center">
+								<p class="fs-4">Liste Utilisateurs</p>
+								
+								<th:block th:if="${session.successMsg}">
+									<p class="text-success fw-bold">[[${session.successMsg}]]</p>
+									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+								</th:block>
+								
+								<th:block th:if="${session.errorMsg}">
+									<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+									<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+								</th:block>
+								
+							</div>
+							<div class="card-body">
+								<table class="table">
+								  <thead>
+								    <tr>
+								      <th scope="col">No</th>
+									  <th scope="col">Photo de profil</th>
+								      <th scope="col">Nom complet</th>
+								      <th scope="col">Téléphone</th>
+								      <th scope="col">Email</th>
+									  <th scope="col">Adresse</th>
+									  <th scope="col">Status</th>
+									  <th scope="col">Action</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr th:each="u,c:${users}">
+								      <th scope="row">[[${c.count}]]</th>
+								      <td>
+										<img th:src="@{'/img/profil_img/'+${u.image}}" width="80px" height="80px">
+									  </td>
+								      <td>[[${u.name}]]</td>
+								      <td>[[${u.mobileNumber}]]</td>
+									  <td>[[${u.email}]]</td>
+									  <td>[[${u.address+', '+u.city+', '+u.state+', '+u.pincode}]]</td>
+									  <td>[[${u.isEnable}]]</td>
+									  <td>
+										<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}" class="btn btn-sm btn-secondary">
+											Activer
+										</a>
+										<a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}}" class="btn btn-sm btn-danger">
+											Désactiver
+										</a>
+									  </td>
+								    </tr>
+								  </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</section>
+	</body>
+</html>

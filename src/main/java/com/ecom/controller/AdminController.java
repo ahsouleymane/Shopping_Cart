@@ -268,6 +268,29 @@ public class AdminController {
 		
 	}
 	
+	@GetMapping("/users")
+	public String getAllUsers(Model m) {
+		List<UserDtls> users = userService.getUsers("ROLE_USER");
+		m.addAttribute("users", users);
+		return "/admin/users";
+	}
+	
+	@GetMapping("/updateStatus")
+	public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id, 
+			HttpSession session) {
+		
+		Boolean f = userService.updateAccountStatus(id, status);
+		
+		if (f) {
+			session.setAttribute("successMsg", "Statut du compte mis à jour !");
+		} else {
+			session.setAttribute("errorMsg", "Erreur sur le serveur");
+		}
+		
+		return "redirect:/admin/users";
+		
+	}
+	
 	
 	
 	

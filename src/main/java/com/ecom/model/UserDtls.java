@@ -36,5 +36,7 @@ public class UserDtls {
 	private String image;
 	
 	private String role;
+	
+	private Boolean isEnable;
 
 }
