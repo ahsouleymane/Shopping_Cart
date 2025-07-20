@@ -1,5 +1,7 @@
 package com.ecom.model;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,5 +40,11 @@ public class UserDtls {
 	private String role;
 	
 	private Boolean isEnable;
+	
+	private Boolean accountNonLocked;
+	
+	private Integer failedAttempt;
+	
+	private Date lockTime;
 
 }

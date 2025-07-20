@@ -51,7 +51,7 @@
 									  <td>[[${u.address+', '+u.city+', '+u.state+', '+u.pincode}]]</td>
 									  <td>[[${u.isEnable}]]</td>
 									  <td>
-										<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}" class="btn btn-sm btn-secondary">
+										<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}" class="btn btn-sm btn-primary">
 											Activer
 										</a>
 										<a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}}" class="btn btn-sm btn-danger">
