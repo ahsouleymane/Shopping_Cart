@@ -2,12 +2,14 @@ package com.ecom.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -27,7 +29,10 @@ import com.ecom.model.UserDtls;
 import com.ecom.service.CategoryService;
 import com.ecom.service.ProductService;
 import com.ecom.service.UserService;
+import com.ecom.util.CommonUtil;
 
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -41,6 +46,9 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CommonUtil commonUtil;
 	
 	@ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
@@ -120,6 +128,49 @@ public class HomeController {
 		
 		return "redirect:/register";
 		
+	}
+	
+	// Mot de passe oublié
+	
+	@GetMapping("/forgot-password")
+	public String showForgotPassword() {
+		return "forgot_password.html";
+	}
+	
+	@PostMapping("/forgot-password")
+	public String processForgotPassword(@RequestParam String email, HttpSession session, 
+			HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
+		
+		UserDtls userByEmail = userService.getUserByEmail(email);
+		
+		if (ObjectUtils.isEmpty(userByEmail)) {
+			session.setAttribute("errorMsg", "Email invalide !");
+		} else {
+			
+			String resetToken = UUID.randomUUID().toString();
+			userService.updateUserResetToken(email, resetToken);
+			
+			// Generate URL : http://localhost:8080/reset-password?token=ybfkjweyfbkwfkfkwkkr
+			
+			String url = CommonUtil.generateUrl(request) + "/reset-password?token=" + resetToken;
+			
+			Boolean sendMail = commonUtil.sendMail(url, email);
+			
+			if (sendMail) {
+				session.setAttribute("successMsg", "S'il vous plait verifier votre mail, le lien de réinitialisation a été envoyé.");
+			} else {
+				session.setAttribute("errorMsg", "Erreur sur le serveur ! Email non envoyé.");
+			}
+			
+		}
+		
+		return "redirect:/forgot-password";
+		
+	}
+	
+	@GetMapping("/reset-password")
+	public String showResetPassword() {
+		return "reset_password.html";
 	}
 	
 	
