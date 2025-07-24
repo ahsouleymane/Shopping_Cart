@@ -4,16 +4,24 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecom.model.Cart;
 import com.ecom.model.Category;
 import com.ecom.model.UserDtls;
+import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
@@ -24,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@GetMapping("/")
 	public String home() {
@@ -43,5 +54,40 @@ public class UserController {
 		m.addAttribute("categorys", allActiveCategory);
 		
 	}
+	
+	@GetMapping("/addCart")
+	public String addToCart(@RequestParam Integer pid, 
+			HttpSession session) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String userEmail = auth.getName();
+	    
+	    UserDtls user = userService.getUserByEmail(userEmail);
 
+	    if (user == null) {
+	        session.setAttribute("errorMsg", "Veuillez vous connecter !");
+	        return "redirect:/signin";
+	    }
+		
+		Cart saveCart = cartService.saveCart(pid, user.getId());
+		
+		if (ObjectUtils.isEmpty(saveCart)) {
+			session.setAttribute("errorMsg", "Echec lors de l'ajout du produit au panier !");
+		} else {
+			session.setAttribute("successMsg", "Produit ajouté au panier avec succes !");
+		}
+		
+		return "redirect:/product/" + pid;
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
