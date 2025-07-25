@@ -85,12 +85,18 @@ public class UserController {
 	
 	@GetMapping("/cart")
 	public String loadCartPage(Principal p, Model m) {
+		
 		UserDtls user = getLoggedInUserDetails(p);
 		List<Cart> carts = cartService.getCartsByUser(user.getId());
 		m.addAttribute("carts", carts);
-		Double totalOrderPrice = carts.get(carts.size()-1).getTotalOrderPrice();
-		m.addAttribute("totalOrderPrice", totalOrderPrice);
+		
+		if (carts.size() > 0) {
+			Double totalOrderPrice = carts.get(carts.size()-1).getTotalOrderPrice();
+			m.addAttribute("totalOrderPrice", totalOrderPrice);
+		}
+		
 		return "/user/cart";
+		
 	}
 
 	private UserDtls getLoggedInUserDetails(Principal p) {
@@ -98,8 +104,12 @@ public class UserController {
 		UserDtls userDtls = userService.getUserByEmail(email);
 		return userDtls;
 	}
-
 	
+	@GetMapping("/cartQuantityUpdate")
+	private String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid) {
+		cartService.updateQuantity(sy, cid);
+		return "redirect:/user/cart";
+	}
 	
 	
 	

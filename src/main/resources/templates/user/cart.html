@@ -47,9 +47,9 @@
 								      <td>[[${cart.product.title}]]</td>
 									  <td>[[${cart.product.discountPrice}]]</td>
 									  <td>
-										<i class="fa-solid fa-minus"></i> 
+										<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid=' + ${cart.id}}"><i class="fa-solid fa-minus"></i></a>
 											[ [[${cart.quantity}]] ]
-										<i class="fa-solid fa-plus"></i>
+										<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid=' + ${cart.id}}"><i class="fa-solid fa-plus"></i></a>
 									  </td>
 			  					      <td>[[${cart.totalPrice}]]</td>
 									  <td>
@@ -65,7 +65,9 @@
 										<td colspan="4"></td>
 										<td class="fw-bold">Total Price</td>
 										<td class="fw-bold">XOF [[${totalOrderPrice}]]</td>
-										<td></td>
+										<td>
+											<a href="#" class="btn btn-warning fw-bold">Procéder au paiment</a>
+										</td>
 									</tr>
 									
 								  </tbody>
