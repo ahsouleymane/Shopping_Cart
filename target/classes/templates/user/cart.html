@@ -46,7 +46,11 @@
 									  </td>
 								      <td>[[${cart.product.title}]]</td>
 									  <td>[[${cart.product.discountPrice}]]</td>
-									  <td>[[${cart.quantity}]]</td>
+									  <td>
+										<i class="fa-solid fa-minus"></i> 
+											[ [[${cart.quantity}]] ]
+										<i class="fa-solid fa-plus"></i>
+									  </td>
 			  					      <td>[[${cart.totalPrice}]]</td>
 									  <td>
 										<a th:href="@{'/product/'+${cart.product.id}}" class="btn btn-sm btn-dark">
@@ -56,6 +60,14 @@
 										</a>
 									  </td>
 								    </tr>
+									
+									<tr>
+										<td colspan="4"></td>
+										<td class="fw-bold">Total Price</td>
+										<td class="fw-bold">XOF [[${totalOrderPrice}]]</td>
+										<td></td>
+									</tr>
+									
 								  </tbody>
 								</table>
 							</div>

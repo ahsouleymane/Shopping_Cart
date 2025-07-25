@@ -72,16 +72,8 @@
 								</div>
 								
 								<th:block th:if="${product.stock > 0}">
-									
-									<!--<th:block th:if="${user == null}">
-										<a href="/signin" class="btn btn-dark col-md-12">Ajouter au panier</a>
-									</th:block>-->
-									
-	<!--								<th:block th:unless="${user == null}">-->
-										<a th:href="@{'/user/addCart?pid='+${product.id}}" 
-										class="btn btn-dark col-md-12">Ajouter au panier</a>
-	<!--								</th:block>-->
-									
+									<a th:href="@{'/user/addCart?pid='+${product.id}}" 
+									class="btn btn-dark col-md-12">Ajouter au panier</a>
 								</th:block>
 								
 								<th:block th:unless="${product.stock > 0}">
