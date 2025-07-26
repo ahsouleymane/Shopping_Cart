@@ -111,6 +111,11 @@ public class UserController {
 		return "redirect:/user/cart";
 	}
 	
+	@GetMapping("/orders")
+	public String orderPage() {
+		return "/user/order";
+	}
+	
 	
 	
 	
