@@ -34,29 +34,35 @@ public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandle
 		
 		UserDtls userDtls = userRepository.findByEmail(email);
 		
-		if (userDtls.getIsEnable()) {
-			
-			if (userDtls.getAccountNonLocked()) {
+		if (userDtls != null) {
+		
+			if (userDtls.getIsEnable()) {
 				
-				if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
-					userService.increaseFailedAttempt(userDtls);
+				if (userDtls.getAccountNonLocked()) {
+					
+					if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
+						userService.increaseFailedAttempt(userDtls);
+					} else {
+						userService.userAccountLock(userDtls);
+						exception = new LockedException("Votre compte est bloqué, vous avez dépassé 3 tentatives !");
+					}
+					
 				} else {
-					userService.userAccountLock(userDtls);
-					exception = new LockedException("Votre compte est bloqué, vous avez dépassé 3 tentatives !");
+					
+					if (userService.unlockAccountTimeExpired(userDtls)) {
+						exception = new LockedException("Votre compte est débloqué, Essayer de vous reconnectez !");
+					} else {
+						exception = new LockedException("Votre compte est bloqué, Réessayer plus tard !");
+					}
+					
 				}
 				
 			} else {
-				
-				if (userService.unlockAccountTimeExpired(userDtls)) {
-					exception = new LockedException("Votre compte est débloqué, Essayer de vous reconnectez !");
-				} else {
-					exception = new LockedException("Votre compte est bloqué, Réessayer plus tard !");
-				}
-				
+				exception = new LockedException("Votre compte est inactif !");
 			}
 			
 		} else {
-			exception = new LockedException("Votre compte est inactif !");
+			exception = new LockedException("Nom d'utilisateur et ou Mot de passe invalide !");
 		}
 		
 		super.setDefaultFailureUrl("/signin?error");

@@ -64,7 +64,7 @@
 									<tr>
 										<td colspan="4"></td>
 										<td class="fw-bold">Total Price</td>
-										<td class="fw-bold">XOF [[${totalOrderPrice}]]</td>
+										<td class="fw-bold">XOF [[${orderPrice}]]</td>
 										<td>
 											<a href="/user/orders" class="btn btn-warning fw-bold" 
 											data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -172,9 +172,9 @@
 									<table class="table table-borderless">
 										<tbody>
 											<tr>
-												<td>Prix total</td>
+												<td>Prix de la commande</td>
 												<td>:</td>
-												<td>XOF [[${totalOrderPrice}]]</td>
+												<td>XOF [[${orderPrice}]]</td>
 											</tr>
 											<tr>
 												<td>Frais de livraison</td>
@@ -187,7 +187,7 @@
 												<td>XOF </td>
 											</tr>
 											<tr class="border-top fw-bold">
-												<td class="fw-bold">Prix total</td>
+												<td class="fw-bold">Prix total de la commande</td>
 												<td class="fw-bold">:</td>
 												<td class="fw-bold">XOF 800980</td>
 											</tr>
@@ -222,7 +222,9 @@
 
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
-						<button type="submit" class="btn bg-warning fw-bold">Passer la commande</button>
+						<button type="submit" class="btn bg-warning fw-bold" data-bs-toggle="modal" data-bs-target="#example1Modal">
+							Passer la commande
+						</button>
 				      </div>
 				  
 				  </form>
@@ -232,6 +234,41 @@
 			</div>
 			
 			<!-- End Order Page -->
+			
+			<!-- Success Order Page -->
+			
+			<!-- Modal -->
+			<div class="modal fade" id="example1Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-xl">
+			    <div class="modal-content">
+						
+				      <div class="modal-body">
+						
+						<div class="container mt-5 p-5">
+							<div class="row">
+								<div class="col-md-8 offset-md-2 text-center">
+									<i class="fa-solid fa-circle-check fa-6x text-success"></i>
+									<p class="fs-3">Votre commande a été effectué avec succès !</p>
+									<p class="fs-3">Vos produit seront livrés dans 7 jours</p>
+									<div class="text-center">
+										<a href="/" class="btn btn-warning fw-bold">
+											<i class="fa-solid fa-house"></i> Acceuil
+										</a>
+										<a href="/user/cart" class="btn btn-warning fw-bold">
+											<i class="fa-solid fa-cart-shopping"></i> Mon Panier
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					  </div>
+
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- End Success Order Page -->
 
 		</section>
 	</body>
