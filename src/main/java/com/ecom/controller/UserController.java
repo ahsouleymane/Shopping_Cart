@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ecom.model.Cart;
 import com.ecom.model.Category;
@@ -125,7 +126,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/save-order")
-	public String saveOrder(@ModelAttribute OrderRequest request, Principal p, HttpSession session) {
+	public String saveOrder(@ModelAttribute OrderRequest request, Principal p, HttpSession session, 
+			RedirectAttributes redirectAttributes) {
 		
 		System.out.println(request);
 		
@@ -133,9 +135,9 @@ public class UserController {
 		Boolean isOrderSaved = orderService.saveOrder(user.getId(), request);
 		
 		if (isOrderSaved) {
-            session.setAttribute("successMsg", "Commande passée avec succès !");
+			redirectAttributes.addFlashAttribute("showSuccessModal", true);
         } else {
-        	session.setAttribute("errorMsg", "Échec de la commande");
+        	redirectAttributes.addFlashAttribute("showErrorModal", true);
         }
 		
 		return "redirect:/user/cart";

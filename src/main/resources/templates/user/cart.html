@@ -66,9 +66,9 @@
 										<td class="fw-bold">Total Price</td>
 										<td class="fw-bold">XOF [[${orderPrice}]]</td>
 										<td>
-											<a href="/user/orders" class="btn btn-warning fw-bold" 
+											<a class="btn btn-warning fw-bold" 
 											data-bs-toggle="modal" data-bs-target="#exampleModal">
-												Procéder au paiment
+												<i class="fa-solid fa-money-bills"></i> Procéder au paiment
 											</a>
 										</td>
 									</tr>
@@ -85,7 +85,7 @@
 			<!-- Order Page -->
 			
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
 			  <div class="modal-dialog modal-xl">
 			    <div class="modal-content">
 
@@ -97,18 +97,6 @@
 				  	<form action="/user/save-order" method="post">
 						
 				      <div class="modal-body">
-						
-						<!-- 🔔 Affichage des erreurs ou succès -->
-				          <div class="mb-3">
-							<th:block th:if="${successMsg}">
-							  <p class="text-success fw-bold">[[${successMsg}]]</p>
-							</th:block>
-
-							<th:block th:if="${errorMsg}">
-							  <p class="text-danger fw-bold">[[${errorMsg}]]</p>
-							</th:block>
-				          </div>
-						  
 				        <div class="row">
 	
 				          <!-- 🧾 Adresse -->
@@ -205,7 +193,7 @@
 								<div class="card-body">
 									<div class="mb-3">
 										<label class="form-label fw-bold">Sélectionner type de paiement</label>
-										<select name="paymentType" class="form-control">
+										<select name="paymentType" class="form-control" required>
 											<option>-- Sélectionner --</option>
 											<option value="COD">Paiement à la livraison</option>
 											<option value="ONLINE">Paiement en ligne</option>
@@ -222,7 +210,7 @@
 
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
-						<button type="submit" class="btn bg-warning fw-bold" data-bs-toggle="modal" data-bs-target="#example1Modal">
+						<button type="submit" class="btn bg-warning fw-bold">
 							Passer la commande
 						</button>
 				      </div>
@@ -238,7 +226,7 @@
 			<!-- Success Order Page -->
 			
 			<!-- Modal -->
-			<div class="modal fade" id="example1Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" th:if="${showSuccessModal}" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel">
 			  <div class="modal-dialog modal-xl">
 			    <div class="modal-content">
 						
@@ -261,7 +249,6 @@
 								</div>
 							</div>
 						</div>
-						
 					  </div>
 
 			    </div>
@@ -269,19 +256,55 @@
 			</div>
 			
 			<!-- End Success Order Page -->
+			
+			<!-- Error Order Page -->
+						
+			<!-- Modal -->
+			<div class="modal fade" th:if="${showErrorModal}" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+			  <div class="modal-dialog modal-xl">
+			    <div class="modal-content">
+						
+				      <div class="modal-body">
+						
+						<div class="container mt-5 p-5">
+							<div class="row">
+								<div class="col-md-8 offset-md-2 text-center">
+									<i class="fa fa-times-circle fa-6x text-danger"></i>
+									<p class="fs-3">Votre commande a échoué !</p>
+									<p class="fs-3">Vérifier les données saisies et réessayer</p>
+									<div class="text-center">
+										<a href="/user/cart" class="btn btn-warning fw-bold" 
+											data-bs-toggle="modal" data-bs-target="#exampleModal">
+											<i class="fa-solid fa-money-bills"></i> Procéder au paiement
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					  </div>
 
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- End Error Order Page -->
+			
+			<script th:inline="javascript">
+			    /*<![CDATA[*/
+			    document.addEventListener("DOMContentLoaded", function() {
+			        // Version Bootstrap 5
+			        if (/*[[${showSuccessModal}]]*/ false) {
+			            new bootstrap.Modal(document.getElementById('successModal')).show();
+			        }
+			        if (/*[[${showErrorModal}]]*/ false) {
+			            new bootstrap.Modal(document.getElementById('errorModal')).show();
+			        }
+			    });
+			    /*]]>*/
+			</script>
+			
 		</section>
+		
 	</body>
-	
-	<script th:inline="javascript">
-	  /*<![CDATA[*/
-	  let error = [[${errorMsg != null}]];
-	  let success = [[${successMsg != null}]];
-	  if (error || success) {
-	    const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-	    modal.show();
-	  }
-	  /*]]>*/
-	</script>
 	
 </html>
